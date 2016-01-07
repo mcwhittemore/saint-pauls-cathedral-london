@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "get-pixels": "^3.2.3",
+    "koa": "^1.1.2",
     "ndarray": "^1.0.18",
     "request": "^2.67.0",
     "save-pixels": "^2.3.0"
