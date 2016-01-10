@@ -9,9 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "co": "^4.6.0",
     "get-pixels": "^3.2.3",
     "koa": "^1.1.2",
     "ndarray": "^1.0.18",
+    "ngraph.graph": "0.0.12",
+    "ngraph.modularity": "^1.0.5",
     "request": "^2.67.0",
     "save-pixels": "^2.3.0"
   }

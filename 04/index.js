@@ -1,6 +1,6 @@
 var path = require('path');
 var fs = require('fs');
-var imgIds = require('./target-imgs.json');
+var imgIds = require('../03/good-img-ids.json');
 var lastImg = 0;
 
 var koa = require('koa');

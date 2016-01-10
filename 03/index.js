@@ -10,16 +10,16 @@ var goodImgs = [];
 var nextImg = 0;
 
 var processImg = function() {
-  console.log(nextImg);
   var imgId = imgIds[nextImg];
+  console.log(nextImg, imgId);
   nextImg++;
   var imgPath = path.join(__dirname, '../instagrams', imgId+'.jpg');
   getPixels(imgPath, function(err, pixels) {
     if(!err) {
       goodImgs.push(imgId);
-      var square = fitShape(imgId, pixels, 640, 640);
+      var square = fitShape(pixels, 640, 640);
       savePixels(square, 'jpg').pipe(fs.createWriteStream(path.join(__dirname, '../instagrams', imgId+'.square.jpg')));
-      var mini = fitShape(imgId, square, 16, 16);
+      var mini = fitShape(square, 16, 16);
       savePixels(mini, 'jpg').pipe(fs.createWriteStream(path.join(__dirname, '../instagrams', imgId+'.mini.jpg')));
     }
     else {
@@ -38,28 +38,30 @@ var processImg = function() {
 processImg();
 processImg();
 
-var fitShape = function(id, img, width, height) {
+var fitShape = function(img, width, height) {
   var pixels = ndarray([], [width, height, 3]);
+  var xSize = img.shape[0] / width;
+  var ySize = img.shape[1] / height;
+
   for (var xBase = 0; xBase < width; xBase++) {
     for (var yBase = 0; yBase < height; yBase++) {
 
       var channels = [0, 0, 0];
-      var xSize = Math.floor(img.shape[0] / width);
-      var ySize = Math.floor(img.shape[1] / height);
-      var blockSize = xSize * ySize;
+      var pixelCount = 0;
 
       for (var xAdd = 0; xAdd < xSize; xAdd++) {
         for (var yAdd = 0; yAdd < ySize; yAdd++) {
-          var x = (xBase * xSize) + xAdd;
-          var y = (yBase * ySize) + yAdd;
+          var x = Math.floor((xBase * xSize) + xAdd);
+          var y = Math.floor((yBase * ySize) + yAdd);
+          pixelCount++;
           for (var c = 0; c < channels.length; c++) {
-            channels[c] += img.get(x, y, c) / blockSize;
+            channels[c] += img.get(x, y, c);
           }
         }
       }
 
       for (var i=0; i<channels.length; i++) {
-        pixels.set(xBase, yBase, i, channels[i]);
+        pixels.set(xBase, yBase, i, Math.floor(channels[i] / pixelCount));
       }
     }
   }
