@@ -8,3 +8,4 @@ community-img:
 
 detection:
 	node ./AAB/index.js > ./AAB/results/scores.txt
+	node ./AAB/find.js

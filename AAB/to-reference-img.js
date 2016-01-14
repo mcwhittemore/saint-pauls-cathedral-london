@@ -78,10 +78,6 @@ module.exports = function*(id){
 
   var referenceImg = ndarray([], img.shape);
 
-  groups.sort(function(a, b) {
-    return b.length - a.length;
-  });
-
   var groupPolygons = groups.map(function(group, gid) {
 
     var cells = {};
