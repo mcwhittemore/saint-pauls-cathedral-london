@@ -1,4 +1,5 @@
 // From https://github.com/mcwhittemore/cubism/blob/9e833a1626dbf95147aa92171f3d5680a699ef3e/sketches/0080/make-communities.js
+console.log('----- 08 ------');
 
 var co = require("co");
 var fs = require("fs");
@@ -24,7 +25,7 @@ var getBasePixels = function*(imgPath){
 }
 
 var getPath = function(imgId){
-  return path.join(__dirname, "..", "07", "results", imgId+".jpg");
+  return path.join(__dirname, "..", "03", "results", imgId+".jpg");
 }
 
 var score = function(dataById, imgIds){
@@ -46,7 +47,7 @@ var STRIPE_SIZE = 5;
 co(function*(){
 
   var imgIds = (yield new Promise(function(resolve, reject){
-    fs.readdir(path.join(__dirname, "..", "07", "results"), function(err, files){
+    fs.readdir(path.join(__dirname, "..", "03", "results"), function(err, files){
       if(err){
         reject(err);
       }

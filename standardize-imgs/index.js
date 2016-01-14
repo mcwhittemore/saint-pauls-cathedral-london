@@ -4,7 +4,7 @@ var getPixels = require('get-pixels');
 var path = require('path');
 var fs = require('fs');
 
-var imgIds = require('../01/img-ids.json');
+var imgIds = require('../get-imgs/img-ids.json');
 
 var goodImgs = [];
 var nextImg = 0;

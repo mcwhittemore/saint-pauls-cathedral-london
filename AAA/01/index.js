@@ -2,13 +2,37 @@ var co = require('co');
 var getPixels = require('get-pixels');
 var path = require('path');
 var fs = require('fs');
-var allImgs = require('../03/good-img-ids.json');
-var targetImgs = require('../04/target-imgs.json');
-var blackAndWhiteArray = require('../utils/black-and-white-array');
-var diffCompare = require('../utils/diff-compare');
+var allImgs = require('../../standardize-imgs/good-img-ids.json');
+var targetImgs = ["8-fIrvwtnE"];
+var imgToList = function(img) {
+  var out = [];
+  for (var x = 0; x <img.shape[0]; x++) {
+    for (var y = 0; y < img.shape[1]; y++) {
+      for (var c=1; c<3; c++) {
+        var v = img.get(x, y, c);
+        out.push(v);
+      }
+    }
+  }
+  return out;
+}
 
-// the goal is to find the 2000 pictures
-// most like the target images in 04
+var diffCompare = function(a, b) {
+  var comp = 0;
+  var count = 0;
+  for (var i=0; i<a.length-1; i++) {
+    for(var j=i+1; j<a.length; j++) {
+      var aa = Math.abs(a[i]-a[j]);
+      var bb = Math.abs(b[i]-b[j]);
+      comp =+ Math.abs(aa - bb);
+      count++;
+    }
+  }
+  return comp/count;
+}
+
+// the goal is to find the 500 pictures
+// most like the target image in 04
 
 var getBasePixels = function*(imgPath){
   return new Promise(function(accept, reject){
@@ -24,7 +48,7 @@ var getBasePixels = function*(imgPath){
 }
 
 var getPath = function(imgId) {
-  return path.join(__dirname, '..', 'instagrams', imgId+'.jpg');
+  return path.join(__dirname, '../..', 'instagrams', imgId+'.jpg');
 }
 
 co(function*() {
@@ -34,7 +58,7 @@ co(function*() {
     var imgId = targetImgs[i] + '.mini';
     var imgPath = getPath(imgId);
     var img = yield getBasePixels(imgPath);
-    targets.push(blackAndWhiteArray(img));
+    targets.push(imgToList(img));
   }
 
   var scores = [];
@@ -46,7 +70,7 @@ co(function*() {
     var imgId = allImgs[i];
     var imgPath = getPath(imgId+ '.mini');
     var img = yield getBasePixels(imgPath);
-    var data = blackAndWhiteArray(img);
+    var data = imgToList(img);
     var values = targets.map(function(target) {
       return diffCompare(target, data);
     });
@@ -79,12 +103,10 @@ co(function*() {
     return a.score - b.score;
   });
 
-  var matches = scores.filter(function(score) {
-    return score.score === 0;
-  }).map(function(score) {
+  var matches = scores.slice(0, 100).map(function(score) {
     return score.imgId;
   });
 
   fs.writeFileSync(path.join(__dirname, 'matches.json'), JSON.stringify(matches, null, 2));
 
-}).catch(function(err) {console.log(err.stack)});
+}).catch(function(err) {console.log(err)});

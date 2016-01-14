@@ -1,7 +1,8 @@
 // From https://github.com/mcwhittemore/cubism/blob/9e833a1626dbf95147aa92171f3d5680a699ef3e/sketches/0080/down.js
+console.log('----- 07 ------');
 
 var co = require("co");
-var listOfImages = require("../05/matches.json");
+var listOfImages = require("../01/matches.json");
 var fs = require("fs");
 var path = require("path");
 var getPixels = require("get-pixels");
@@ -10,7 +11,7 @@ var ndarray = require('ndarray');
 
 var NUM_IMAGES = 'ALL';
 var STRIPE_SIZE = 5;
-var STARTER_ID = '-1b510rY_7';
+var STARTER_ID = '8-fIrvwtnE';
 
 var getBasePixels = function*(imgPath){
   return new Promise(function(accept, reject){
@@ -26,7 +27,7 @@ var getBasePixels = function*(imgPath){
 }
 
 var getPath = function(imgId){
-  return path.join(__dirname, "..", "06", "results", imgId+".jpg");
+  return path.join(__dirname, "..", "02", "results", imgId+".jpg");
 }
 
 var timesUsed = {};

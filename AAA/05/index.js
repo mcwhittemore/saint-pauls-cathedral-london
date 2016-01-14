@@ -1,4 +1,5 @@
 // From https://github.com/mcwhittemore/cubism/blob/9e833a1626dbf95147aa92171f3d5680a699ef3e/sketches/0080/out.js
+console.log('----- 09 ------');
 
 var co = require("co");
 var fs = require("fs");
@@ -6,7 +7,7 @@ var path = require("path");
 var getPixels = require("get-pixels");
 var savePixels = require("save-pixels");
 var ndarray = require('ndarray');
-var communities = require('../08/communities.json');
+var communities = require('../04/communities.json');
 
 var getBasePixels = function*(imgPath){
   return new Promise(function(accept, reject){
@@ -22,7 +23,7 @@ var getBasePixels = function*(imgPath){
 }
 
 var getPath = function(imgId){
-  return path.join(__dirname, "..", "07", "results", imgId+".jpg");
+  return path.join(__dirname, "..", "03", "results", imgId+".jpg");
 }
 
 var saveImage = function(pixels, imgId){
