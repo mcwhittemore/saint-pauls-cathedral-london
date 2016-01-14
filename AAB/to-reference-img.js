@@ -74,7 +74,7 @@ module.exports = function*(id){
 
   groups = groups.sort(function(a, b) {
     return b.length - a.length;
-  }).slice(Math.floor(groups.length/9));
+  });
 
   var referenceImg = ndarray([], img.shape);
 

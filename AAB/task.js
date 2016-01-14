@@ -19,23 +19,17 @@ co(function*(){
         var refV = reference.get(x, y, 1);
         var subV = sub.get(x, y, 1);
 
-        if(refV === 0 && subV !== 0) {
-          score-=5;
-        }
-        else if(refV === 75 && subV === 75) {
-          score+=200;
-        }
-        else if(refV === 75 && subV === 150) {
-          score+=100;
-        }
-        else if(refV === 150 && subV === 150) {
-          score+=400;
-        }
-        else if(refV === 150 && subV === 75) {
+        if(refV === 75 && subV === 75) {
           score+=2;
         }
-        else if(refV === 150 && subV === 0) {
-          //score-=20;
+        else if(refV === 75 && subV === 150) {
+          score+=1;
+        }
+        else if(refV === 150 && subV === 150) {
+          score+=4;
+        }
+        else if(refV === 150 && subV === 75) {
+          score-=2;
         }
       }
     }
