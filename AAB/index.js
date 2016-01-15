@@ -2,7 +2,7 @@ console.log('----- AAB ------');
 
 var get
 var co = require("co");
-var listOfImages = require("../standardize-imgs/good-img-ids.json").slice(0, 100);
+var listOfImages = ['8-fIrvwtnE']; //require("../standardize-imgs/good-img-ids.json").slice(0, 100);
 var toReferenceImg = require('./to-reference-img');
 var exec = require('child_process').exec;
 var path = require('path');

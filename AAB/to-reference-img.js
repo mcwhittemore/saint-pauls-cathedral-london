@@ -106,7 +106,7 @@ module.exports = function*(id){
         return true;
       }
       else {
-        referenceImg.set(cells[id].x, cells[id].y, 1, 150);
+        referenceImg.set(cells[id].x, cells[id].y, 1, 75);
         return false;
       }
     }).map(function(id){
@@ -114,12 +114,12 @@ module.exports = function*(id){
     });
 
 
-    return polygon
+    return polygon;
   });
 
   groupPolygons.forEach(function(poly) {
     poly.forEach(function(cell) {
-      referenceImg.set(cell.x, cell.y, 1, 75);
+      referenceImg.set(cell.x, cell.y, 1, 150);
     });
   });
 
