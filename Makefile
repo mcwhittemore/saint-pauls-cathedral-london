@@ -9,3 +9,7 @@ community-img:
 detection:
 	node ./AAB/index.js > ./AAB/results/scores.txt
 	node ./AAB/find.js
+
+grid:
+	rm -rf ./AAC/data/*
+	node ./AAC
